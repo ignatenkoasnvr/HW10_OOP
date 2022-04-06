@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <map>
 using namespace std;
-
 string randomName() {
 	int length = rand() % 5 + 5;
 	string tmp;
@@ -24,23 +23,21 @@ string randomName() {
 int randomPopulation() {
 	return rand() % 1000000 + 500000;
 }
-
 void printBln(map& cityPopulations) {
 	if(cityPopulations.second >=1000000)
 		cout << cityPopulations.first << ": " << cityPopulations.second << endl;
 }
-
 int main() {
-	setlocale(LC_ALL, "Russian");
 	map<string, float> cityPopulations;
 
 	int countCity = rand() % 20 + 10;
 	for(int  i=0; i< countCity; i++)
 		cityPopulations.insert_or_assign(randomName(), [] {return rand() % 1000000 + 500000; });
 
-	/*for (const pair<string, int>& cityPopulation : cityPopulations)
-		if(pair.second >= 1000000)
-			cout << pair.first << ": " << pair.second << endl;*/
+	for (const pair<string, int>& cityPopulation : cityPopulations) {
+		if (pair.second >= 1000000)
+			cout << pair.first << ": " << pair.second << endl;
+	}
 
 	for_each(cityPopulations.begin(), cityPopulations.end(), printBln);
 	sort(cityPopulations.begin(), cityPopulations.end(), less<int>());
