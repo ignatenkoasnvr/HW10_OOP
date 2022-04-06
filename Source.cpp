@@ -48,6 +48,7 @@ int main() {
 	sort(cityPopulations.begin(), cityPopulations.end(), less<string>());
 	for_each(cityPopulations.begin(), cityPopulations.end(), [cityPopulations] {cout << cityPopulations.first << ": " << cityPopulations.second << endl; });
 
+
 	return 0;
 }
 
