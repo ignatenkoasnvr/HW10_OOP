@@ -23,27 +23,31 @@ string randomName() {
 int randomPopulation() {
 	return rand() % 1000000 + 500000;
 }
-void printBln(map& cityPopulations) {
+void printBln(const pair<string, int>& cityPopulations) {
 	if(cityPopulations.second >=1000000)
 		cout << cityPopulations.first << ": " << cityPopulations.second << endl;
 }
 int main() {
-	map<string, float> cityPopulations;
+	map<string, int> cityPopulations;
 
 	int countCity = rand() % 20 + 10;
 	for(int  i=0; i< countCity; i++)
 		cityPopulations.insert_or_assign(randomName(), [] {return rand() % 1000000 + 500000; });
 
 	for (const pair<string, int>& cityPopulation : cityPopulations) {
-		if (pair.second >= 1000000)
-			cout << pair.first << ": " << pair.second << endl;
+		if (cityPopulation.second >= 1000000)
+			cout << cityPopulation.first << ": " << cityPopulation.second << endl;
 	}
 
 	for_each(cityPopulations.begin(), cityPopulations.end(), printBln);
 	sort(cityPopulations.begin(), cityPopulations.end(), less<int>());
-	for_each(cityPopulations.begin(), cityPopulations.end(), [cityPopulations] {cout << cityPopulations.first << ": " << cityPopulations.second << endl; });
+	for (const pair<string, int>& cityPopulation : cityPopulations) {
+			cout << cityPopulation.first << ": " << cityPopulation.second << endl;
+	}
 	sort(cityPopulations.begin(), cityPopulations.end(), less<string>());
-	for_each(cityPopulations.begin(), cityPopulations.end(), [cityPopulations] {cout << cityPopulations.first << ": " << cityPopulations.second << endl; });
+	for (const pair<string, int>& cityPopulation : cityPopulations) {
+		cout << cityPopulation.first << ": " << cityPopulation.second << endl;
+	}
 
 	return 0;
 }
