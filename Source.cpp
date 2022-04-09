@@ -7,48 +7,57 @@
 ************************/
 #include <iostream>
 #include <string>
-#include <stdio.h>
 #include <vector>
 #include <algorithm>
-#include <map>
 using namespace std;
-string randomName() {
-	int length = rand() % 5 + 5;
-	string tmp;
-	tmp = (char)rand() % 26 + 65;
-	for (int i = 0; i < length; i++)
-		tmp += rand() % 26 + 97;
-	return tmp;
-}
-int randomPopulation() {
-	return rand() % 1000000 + 500000;
-}
-void printBln(const pair<string, int>& cityPopulations) {
-	if(cityPopulations.second >=1000000)
-		cout << cityPopulations.first << ": " << cityPopulations.second << endl;
-}
+
+	int randomPopulation() {
+		return rand() % 1000000 + 990000;
+	}
+	string randomName() {
+		int length = rand() % 3 + 5;
+		string tmp;
+		tmp = (char)(rand() % 25 + 65);
+		for (int i = 0; i < length; i++)
+			tmp += rand() % 26 + 97;
+		return tmp;
+	}
+class  City {
+	string name;
+	int population;
+public:
+	City(string name,  int population)
+		:name(name), population(population) {}
+	const string& getName() const { return name; }
+	int getPopulation() const { return population; }
+	
+	void printBln(const pair<string, int>& cityPopulations) {
+		if(cityPopulations.second >=1000000)
+			cout << cityPopulations.first << ": " << cityPopulations.second << endl;
+	}
+};
+
 int main() {
-	map<string, int> cityPopulations;
+	vector<City> cities{
+		{ randomName(), randomPopulation() },
+		{ randomName(), randomPopulation() },
+		{ randomName(), randomPopulation() },
+		{ randomName(), randomPopulation() },
+		{ randomName(), randomPopulation() },
+	};
+	for_each(cities.begin(), cities.end(),
+		[](City city) { if (city.getPopulation()>1000'000) cout << city.getName() << ' ' << city.getPopulation() << endl; });
+	cout << endl;
+	sort(cities.begin(), cities.end(),
+		[](City a, City b) { return a.getName() < b.getName(); });
+	for_each(cities.begin(), cities.end(),
+		[](City city) { cout << city.getName() << ' ' << city.getPopulation() << endl; });
+	cout << endl;
 
-	int countCity = rand() % 20 + 10;
-	for(int  i=0; i< countCity; i++)
-		cityPopulations.insert_or_assign(randomName(), [] {return rand() % 1000000 + 500000; });
+	sort(cities.begin(), cities.end(),
+		[](City a, City b) { return a.getPopulation() > b.getPopulation(); });
+	for_each(cities.begin(), cities.end(),
+		[](City city) { cout << city.getName() << ' ' << city.getPopulation() << endl; });
 
-	for (const pair<string, int>& cityPopulation : cityPopulations) {
-		if (cityPopulation.second >= 1000000)
-			cout << cityPopulation.first << ": " << cityPopulation.second << endl;
-	}
-
-	for_each(cityPopulations.begin(), cityPopulations.end(), printBln);
-	sort(cityPopulations.begin(), cityPopulations.end(), less<int>());
-	for (const pair<string, int>& cityPopulation : cityPopulations) {
-			cout << cityPopulation.first << ": " << cityPopulation.second << endl;
-	}
-	sort(cityPopulations.begin(), cityPopulations.end(), less<string>());
-	for (const pair<string, int>& cityPopulation : cityPopulations) {
-		cout << cityPopulation.first << ": " << cityPopulation.second << endl;
-	}
-
-	return 0;
 }
 
